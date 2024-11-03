@@ -7,15 +7,12 @@ export default async function PetList() {
   const session = await getServerSession()
   const pets = await getAvailablePets(session?.user?.email ?? undefined)
 
-  console.log("!!!!")
-  console.log(session?.user?.email)
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 text-center">Pets for Sale</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {pets.map((pet) => (
-          <Card key={pet.id} className="flex flex-col">
+          <Card key={pet.id} className="flex flex-col" data-testid={`pet-${pet.id}`}>
             <CardHeader>
               <CardTitle className="text-xl">{pet.name}</CardTitle>
             </CardHeader>
