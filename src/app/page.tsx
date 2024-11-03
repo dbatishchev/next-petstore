@@ -1,4 +1,4 @@
-import PetList from "./components/petList";
+import PetList from "./components/List";
 
 export default async function Home() {
   return (

@@ -1,17 +1,9 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { prisma } from "@/lib/prisma"
 import BuyButton from "./BuyButton"
+import { getAvailablePets } from "../queries/getPets"
 
 export default async function PetList() {
-  // Fetch pets that haven't been sold yet
-  const pets = await prisma.pet.findMany({
-    where: {
-      order: null
-    },
-    orderBy: {
-      id: 'asc'
-    }
-  })
+  const pets = await getAvailablePets()
 
   return (
     <div className="container mx-auto px-4 py-8">
