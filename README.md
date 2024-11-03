@@ -10,7 +10,7 @@ This is a simple petstore application built with Next.js and PostgreSQL. The use
 
 ## Technologies
 
-- Next.js
+- Next.js (with App Router)
 - PostgreSQL
 - Prisma
 - Tailwind CSS
