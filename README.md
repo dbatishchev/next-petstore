@@ -31,7 +31,8 @@ This is a simple petstore application built with Next.js and PostgreSQL. The use
 ## How to initialize the database
 
 1. `npx prisma migrate dev`
-2. `npx prisma db seed`
+2. `npx prisma db push`
+3. `npx prisma db seed`
 
 ## TODO List
 
@@ -40,7 +41,7 @@ This is a simple petstore application built with Next.js and PostgreSQL. The use
 - [ ] The migrations should be automated
 - [ ] The seed data should be automated
 - [ ] Write integration tests for the main page
-
+- [ ] useTransition for state transitions
 ## Generate Prisma client
 npx prisma generate
 

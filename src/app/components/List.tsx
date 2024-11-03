@@ -1,9 +1,14 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import BuyButton from "./BuyButton"
+import { BuyButton } from "./BuyButton"
 import { getAvailablePets } from "../queries/getPets"
+import { getServerSession } from "next-auth"
 
 export default async function PetList() {
-  const pets = await getAvailablePets()
+  const session = await getServerSession()
+  const pets = await getAvailablePets(session?.user?.email ?? undefined)
+
+  console.log("!!!!")
+  console.log(session?.user?.email)
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -25,7 +30,10 @@ export default async function PetList() {
               <p className="font-semibold text-lg">${pet.price}</p>
             </CardContent>
             <CardFooter>
-              <BuyButton petId={pet.id} />
+              <BuyButton 
+                petId={pet.id} 
+                isPending={pet.order?.status === 'PENDING'}
+              />
             </CardFooter>
           </Card>
         ))}

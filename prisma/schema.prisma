@@ -18,10 +18,11 @@ model Pet {
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   petId     Int      @unique
   userId    String
+  status    String   @default("PENDING")
   createdAt DateTime @default(now())
-  status    String   @default("pending")
+  updatedAt DateTime @updatedAt
   pet       Pet      @relation(fields: [petId], references: [id])
 }

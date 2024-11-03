@@ -1,33 +1,23 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { PawPrint } from "lucide-react"
-import { useTransition } from "react"
-import { toast } from "sonner"
-import { purchasePet } from "../actions/purchase"
+import { useState } from 'react'
+import { createOrder } from '../actions/purchase'
 
-export default function BuyButton({ petId }: { petId: number }) {
-  const [isPending, startTransition] = useTransition()
+export function BuyButton({ petId, isPending }: { petId: number, isPending: boolean }) {
+  const [isAdding, setIsAdding] = useState(false)
 
-  const handlePurchase = () => {
-    startTransition(async () => {
-      const result = await purchasePet(petId)
-      if (result.success) {
-        toast.success(result.message)
-      } else {
-        toast.error(result.message)
-      }
-    })
+  const handleClick = async () => {
+    setIsAdding(true)
+    await createOrder(petId)
   }
 
   return (
-    <Button 
-      className="w-full" 
-      onClick={handlePurchase}
-      disabled={isPending}
+    <button
+      onClick={handleClick}
+      disabled={isAdding || isPending}
+      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
     >
-      <PawPrint className="mr-2 h-4 w-4" /> 
-      {isPending ? 'Processing...' : 'Buy Now'}
-    </Button>
+      {isPending || isAdding ? 'Added to Cart' : 'Buy Now'}
+    </button>
   )
 }
