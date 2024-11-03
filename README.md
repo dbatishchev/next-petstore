@@ -10,7 +10,7 @@ This is a simple petstore application built with Next.js and PostgreSQL. The use
 
 ## Technologies
 
-- Next.js (with App Router)
+- Next.js (with App Router and Server Actions)
 - PostgreSQL
 - Prisma
 - Tailwind CSS
@@ -23,6 +23,10 @@ This is a simple petstore application built with Next.js and PostgreSQL. The use
 2. Install dependencies: `npm install`
 3. Set up PostgreSQL and Prisma: `npx prisma migrate dev`
 4. Start the development server: `npm run dev`
+
+## How to update the database
+
+1. `npx prisma generate`
 
 ## How to initialize the database
 

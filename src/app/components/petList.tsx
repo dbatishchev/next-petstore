@@ -1,19 +1,17 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { PawPrint } from "lucide-react"
 import { prisma } from "@/lib/prisma"
-import { Pet } from "@prisma/client"
+import BuyButton from "./BuyButton"
 
-async function getPets(): Promise<Pet[]> {
-  return await prisma.pet.findMany({
+export default async function PetList() {
+  // Fetch pets that haven't been sold yet
+  const pets = await prisma.pet.findMany({
+    where: {
+      order: null
+    },
     orderBy: {
       id: 'asc'
     }
-  });
-}
-
-export default async function PetList() {
-  const pets = await getPets();
+  })
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -35,9 +33,7 @@ export default async function PetList() {
               <p className="font-semibold text-lg">${pet.price}</p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">
-                <PawPrint className="mr-2 h-4 w-4" /> Buy Now
-              </Button>
+              <BuyButton petId={pet.id} />
             </CardFooter>
           </Card>
         ))}
