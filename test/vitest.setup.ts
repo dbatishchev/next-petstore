@@ -2,7 +2,7 @@
 
 import "@testing-library/jest-dom/vitest"
 import { PrismaClient } from '@prisma/client'
-import { beforeAll, afterAll } from 'vitest'
+import { beforeAll, afterAll, vi } from 'vitest'
 
 let prisma: PrismaClient
 
@@ -12,4 +12,11 @@ beforeAll(() => {
 
 afterAll(async () => {
   await prisma.$disconnect()
+})
+
+// mock "server-only" imports
+vi.mock('server-only', () => {
+  return {
+    default: undefined
+  }
 })
